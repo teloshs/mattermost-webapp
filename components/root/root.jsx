@@ -43,7 +43,7 @@ import * as Utils from 'utils/utils.jsx';
 import webSocketClient from 'client/web_websocket_client.jsx';
 
 const LazyErrorPage = React.lazy(() => import('components/error_page'));
-const LazyLoginController = React.lazy(() => import('components/login/login_controller'));
+const LazyLoginControllerDeprecated = React.lazy(() => import('components/login_deprecated/login_controller'));
 const LazyAdminConsole = React.lazy(() => import('components/admin_console'));
 const LazyLoggedIn = React.lazy(() => import('components/logged_in'));
 const LazyPasswordResetSendLink = React.lazy(() => import('components/password_reset_send_link'));
@@ -75,7 +75,7 @@ import RootRedirect from './root_redirect';
 const CreateTeam = makeAsyncComponent('CreateTeam', LazyCreateTeam);
 const ErrorPage = makeAsyncComponent('ErrorPage', LazyErrorPage);
 const TermsOfService = makeAsyncComponent('TermsOfService', LazyTermsOfService);
-const LoginController = makeAsyncComponent('LoginController', LazyLoginController);
+const LoginControllerDeprecated = makeAsyncComponent('LoginControllerDeprecated', LazyLoginControllerDeprecated);
 const AdminConsole = makeAsyncComponent('AdminConsole', LazyAdminConsole);
 const LoggedIn = makeAsyncComponent('LoggedIn', LazyLoggedIn);
 const PasswordResetSendLink = makeAsyncComponent('PasswordResedSendLink', LazyPasswordResetSendLink);
@@ -407,6 +407,7 @@ export default class Root extends React.PureComponent {
         if (!this.state.configLoaded) {
             return <div/>;
         }
+        const useCaseOnboarding = getUseCaseOnboarding(store.getState());
 
         return (
             <IntlProvider>
@@ -417,7 +418,7 @@ export default class Root extends React.PureComponent {
                     />
                     <HFTRoute
                         path={'/login'}
-                        component={LoginController}
+                        component={useCaseOnboarding ? () => <div>{'LoginController'}</div> : LoginControllerDeprecated}
                     />
                     <HFTRoute
                         path={'/reset_password'}
