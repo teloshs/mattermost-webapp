@@ -17,7 +17,7 @@ import {trackEvent} from 'actions/telemetry_actions';
 
 import {Animations, mapAnimationReasonToClass, PreparingWorkspacePageProps} from './steps';
 
-import PageLine from './page_line';
+import ProgressPath from './progress_path';
 
 import Title from './title';
 import Description from './description';
@@ -80,21 +80,9 @@ const Url = (props: Props) => {
                 <div className='Url-left-col'/>
                 <div className='Url-right-col'>
                     <div className='Url-form-wrapper'>
-                        <div className='Url__progress-path'>
-                            <PageLine
-                                style={{
-                                    height: '50vh',
-                                    position: 'absolute',
-                                    transform: 'translateY(-100%)',
-                                    top: '-20px',
-                                }}
-                                noLeft={true}
-                            />
+                        <ProgressPath>
                             <LaptopEarthSVG/>
-                            <PageLine
-                                noLeft={true}
-                            />
-                        </div>
+                        </ProgressPath>
                         {props.previous}
                         <Title>
                             <FormattedMessage

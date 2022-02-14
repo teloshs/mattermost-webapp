@@ -26,7 +26,7 @@
 
 .PreparingWorkspaceContainer {
     display: flex;
-    max-width: 1200px;
+    // max-width: 1200px;
     flex-direction: row;
 
     .tertiary-button {
@@ -40,14 +40,16 @@
     }
 
     .child-page {
-        position: absolute;
-        top: 0;
-        left: 0;
         height: 100vh;
     }
 }
 
 .PreparingWorkspacePageContainer {
-    position: relative;
-    width: calc(100vw - 120px);
+    flex: 0 0 max-content; 
+    transform: translateX(-60px);
+}
+
+.PreparingWorkspacePageGutter {
+    flex: 1 2 auto;
+    width: calc(100% - 60px);
 }

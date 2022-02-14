@@ -2,16 +2,14 @@
 
 .Plugins-body {
     display: flex;
-    width: 100%;
-    max-width: 1126px;
 }
 
 .Plugins__marketplace {
     margin-top: 24px;
 }
 
-// 1136 is width at which the cards start hitting screen and wrapping to next line.
-@media screen and (max-width: 1260px) {
+// width at which the cards start hitting screen and wrapping to next line.
+@media screen and (max-width: 1000px) {
     .Plugins-body .MultiSelectCards {
         display: flex;
         flex-direction: column;

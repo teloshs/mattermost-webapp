@@ -33,7 +33,7 @@ type Props = {
 const mapStateToProps = (state: GlobalState, ownProps: Props) => {
     const config = getConfig(state);
     const enableOnboardingFlow = config.EnableOnboardingFlow === 'true';
-    const useCaseOnboarding = getUseCaseOnboarding(state);
+    const useCaseOnboarding = getUseCaseOnboarding();
     let channelName = getLastViewedChannelNameByTeamName(state, ownProps.match.params.team);
     if (!channelName) {
         const team = getTeamByName(state, ownProps.match.params.team);

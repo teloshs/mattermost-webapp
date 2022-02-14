@@ -363,6 +363,7 @@ export default function PreparingWorkspace(props: Props) {
                 stepOrder={stepOrder}
                 transitionSpeed={Animations.PAGE_SLIDE}
             />
+            <div className='PreparingWorkspacePageGutter'/>
             <div className='PreparingWorkspacePageContainer'>
                 {isSelfHosted && (
                     <Organization
@@ -535,6 +536,7 @@ export default function PreparingWorkspace(props: Props) {
                     teamName={isSelfHosted ? form.organization || '' : (currentTeam || myTeams?.[0]).display_name || ''}
                 />
             </div>
+            <div className='PreparingWorkspacePageGutter'/>
         </div>
     );
 }
