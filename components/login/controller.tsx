@@ -68,6 +68,7 @@ type Props = {
     openidButtonColor: string;
     siteName: string;
     initializing: boolean;
+    useCaseOnboarding: boolean;
     actions: Actions;
 };
 
@@ -365,6 +366,12 @@ class LoginController extends React.PureComponent<Props, State> {
             browserHistory.push(`/${team.name}`);
         } else if (experimentalPrimaryTeam) {
             browserHistory.push(`/${experimentalPrimaryTeam}`);
+        } else if (this.props.useCaseOnboarding) {
+            // need info about whether admin or not,
+            // and whether admin has already completed
+            // first tiem onboarding. Instead of fetching and orchestrating that here,
+            // let the default root component handle it.
+            browserHistory.push('/');
         } else {
             GlobalActions.redirectUserToDefaultTeam();
         }
