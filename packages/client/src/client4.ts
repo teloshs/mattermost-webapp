@@ -5,8 +5,6 @@
 
 import {SystemSetting} from 'mattermost-redux/types/general';
 
-import {General} from '../constants';
-
 import {ClusterInfo, AnalyticsRow} from 'mattermost-redux/types/admin';
 import type {AppBinding, AppCallRequest, AppCallResponse, AppCallType} from 'mattermost-redux/types/apps';
 import {Audit} from 'mattermost-redux/types/audits';
@@ -135,6 +133,8 @@ const HEADER_USER_AGENT = 'User-Agent';
 const HEADER_X_CLUSTER_ID = 'X-Cluster-Id';
 const HEADER_X_CSRF_TOKEN = 'X-CSRF-Token';
 export const HEADER_X_VERSION_ID = 'X-Version-Id';
+
+const AUTOCOMPLETE_LIMIT_DEFAULT = 25;
 const PER_PAGE_DEFAULT = 60;
 const LOGS_PER_PAGE_DEFAULT = 10000;
 export const DEFAULT_LIMIT_BEFORE = 30;
@@ -900,7 +900,7 @@ export default class Client4 {
     };
 
     autocompleteUsers = (name: string, teamId: string, channelId: string, options = {
-        limit: General.AUTOCOMPLETE_LIMIT_DEFAULT,
+        limit: AUTOCOMPLETE_LIMIT_DEFAULT,
     }) => {
         return this.doFetch<UserAutocomplete>(`${this.getUsersRoute()}/autocomplete${buildQueryString({
             in_team: teamId,
