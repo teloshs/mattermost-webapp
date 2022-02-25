@@ -113,8 +113,6 @@ import {
 } from 'mattermost-redux/types/data_retention';
 import {CompleteOnboardingRequest} from 'mattermost-redux/types/setup';
 
-import {isMinimumServerVersion} from 'mattermost-redux/utils/helpers';
-
 import {UserThreadList, UserThread, UserThreadWithPost} from 'mattermost-redux/types/threads';
 
 import {ClientError} from './error';
@@ -811,13 +809,7 @@ export default class Client4 {
     };
 
     getProfilesInChannel = (channelId: string, page = 0, perPage = PER_PAGE_DEFAULT, sort = '', options: {active?: boolean} = {}) => {
-        const serverVersion = this.getServerVersion();
-        let queryStringObj;
-        if (isMinimumServerVersion(serverVersion, 4, 7)) {
-            queryStringObj = {in_channel: channelId, page, per_page: perPage, sort};
-        } else {
-            queryStringObj = {in_channel: channelId, page, per_page: perPage};
-        }
+        const queryStringObj = {in_channel: channelId, page, per_page: perPage, sort};
         return this.doFetch<UserProfile[]>(
             `${this.getUsersRoute()}${buildQueryString({...queryStringObj, ...options})}`,
             {method: 'get'},
