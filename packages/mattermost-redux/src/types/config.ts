@@ -288,7 +288,7 @@ export type ServiceSettings = {
     ExtendSessionLengthWithActivity: boolean;
     SessionLengthWebInDays: number;
     SessionLengthMobileInDays: number;
-    SessionLengthSSOInDays: number;
+    SessionLengthSSOInMinutes: number;
     SessionCacheInMinutes: number;
     SessionIdleTimeoutInMinutes: number;
     WebsocketSecurePort: number;
