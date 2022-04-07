@@ -734,6 +734,13 @@ export default class SecurityTab extends React.PureComponent<Props, State> {
                     defaultMessage='GitLab'
                 />
             );
+        } else if (this.props.user.auth_service === Constants.TELOS_SERVICE) {
+            describe = (
+                <FormattedMessage
+                    id='user.settings.security.telos'
+                    defaultMessage='Telos'
+                />
+            );
         } else if (this.props.user.auth_service === Constants.GOOGLE_SERVICE) {
             describe = (
                 <FormattedMessage

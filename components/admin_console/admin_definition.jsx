@@ -4342,6 +4342,123 @@ const AdminDefinition = {
                 ],
             },
         },
+        telos: {
+            url: 'authentication/telos',
+            title: t('admin.sidebar.telos'),
+            title_default: 'Telos',
+            isHidden: it.any(
+                it.licensed,
+                it.not(it.userHasReadPermissionOnResource(RESOURCE_KEYS.AUTHENTICATION.OPENID)),
+            ),
+            schema: {
+                id: 'TelosLoginSettings',
+                name: t('admin.authentication.telos'),
+                name_default: 'Telos',
+                onConfigLoad: (config) => {
+                    const newState = {};
+                    newState['TelosLoginSettings.Url'] = config.TelosLoginSettings.UserAPIEndpoint.replace('/api/v4/user', '');
+                    return newState;
+                },
+                onConfigSave: (config) => {
+                    const newConfig = {...config};
+                    newConfig.TelosLoginSettings.UserAPIEndpoint = config.TelosLoginSettings.Url.replace(/\/$/, '') + '/api/v4/user';
+                    return newConfig;
+                },
+                settings: [
+                    {
+                        type: Constants.SettingsTypes.TYPE_BOOL,
+                        key: 'TelosLoginSettings.Enable',
+                        label: t('admin.telos.enableTitle'),
+                        label_default: 'Enable authentication with Telos: ',
+                        help_text: t('admin.telos.enableDescription'),
+                        help_text_default: "When true, Mattermost allows team creation and account signup using Telos OAuth.\n \n1. Log in to your GitLab account and go to Profile Settings -> Applications.\n2. Enter Redirect URIs \"'<your-mattermost-url>'/login/gitlab/complete\" (example: http://localhost:8065/login/gitlab/complete) and \"<your-mattermost-url>/signup/gitlab/complete\".\n3. Then use \"Application Secret Key\" and \"Application ID\" fields from GitLab to complete the options below.\n4. Complete the Endpoint URLs below.",
+                        help_text_markdown: true,
+                        isDisabled: it.not(it.userHasWritePermissionOnResource(RESOURCE_KEYS.AUTHENTICATION.OPENID)),
+                    },
+                    {
+                        type: Constants.SettingsTypes.TYPE_TEXT,
+                        key: 'TelosLoginSettings.Id',
+                        label: t('admin.telos.clientIdTitle'),
+                        label_default: 'Application ID:',
+                        help_text: t('admin.telos.clientIdDescription'),
+                        help_text_default: 'Obtain this value via the instructions above for logging into Telos.',
+                        placeholder: t('admin.telos.clientIdExample'),
+                        placeholder_default: 'E.g.: "jcuS8PuvcpGhpgHhlcpT1Mx42pnqMxQY"',
+                        isDisabled: it.any(
+                            it.not(it.userHasWritePermissionOnResource(RESOURCE_KEYS.AUTHENTICATION.OPENID)),
+                            it.stateIsFalse('TelosLoginSettings.Enable'),
+                        ),
+                    },
+                    {
+                        type: Constants.SettingsTypes.TYPE_TEXT,
+                        key: 'TelosLoginSettings.Secret',
+                        label: t('admin.telos.clientSecretTitle'),
+                        label_default: 'Application Secret Key:',
+                        help_text: t('admin.telos.clientSecretDescription'),
+                        help_text_default: 'Obtain this value via the instructions above for logging into GitLab.',
+                        placeholder: t('admin.telos.clientSecretExample'),
+                        placeholder_default: 'E.g.: "jcuS8PuvcpGhpgHhlcpT1Mx42pnqMxQY"',
+                        isDisabled: it.any(
+                            it.not(it.userHasWritePermissionOnResource(RESOURCE_KEYS.AUTHENTICATION.OPENID)),
+                            it.stateIsFalse('TelosLoginSettings.Enable'),
+                        ),
+                    },
+                    {
+                        type: Constants.SettingsTypes.TYPE_TEXT,
+                        key: 'TelosLoginSettings.Url',
+                        label: t('admin.telos.siteUrl'),
+                        label_default: 'Telos Site URL:',
+                        help_text: t('admin.telos.siteUrlDescription'),
+                        help_text_default: 'Enter the URL of your Telos RPM instance, e.g. https://example.com:3000.',
+                        placeholder: t('admin.telos.siteUrlExample'),
+                        placeholder_default: 'E.g.: https://',
+                        isDisabled: it.any(
+                            it.not(it.userHasWritePermissionOnResource(RESOURCE_KEYS.AUTHENTICATION.OPENID)),
+                            it.stateIsFalse('TelosLoginSettings.Enable'),
+                        ),
+                    },
+                    {
+                        type: Constants.SettingsTypes.TYPE_TEXT,
+                        key: 'TelosLoginSettings.UserAPIEndpoint',
+                        label: t('admin.telos.userTitle'),
+                        label_default: 'User API Endpoint:',
+                        dynamic_value: (value, config, state) => {
+                            if (state['TelosLoginSettings.Url']) {
+                                return state['TelosLoginSettings.Url'].replace(/\/$/, '') + '/api/v4/user';
+                            }
+                            return '';
+                        },
+                        isDisabled: true,
+                    },
+                    {
+                        type: Constants.SettingsTypes.TYPE_TEXT,
+                        key: 'TelosLoginSettings.AuthEndpoint',
+                        label: t('admin.telos.authTitle'),
+                        label_default: 'Auth Endpoint:',
+                        dynamic_value: (value, config, state) => {
+                            if (state['TelosLoginSettings.Url']) {
+                                return state['TelosLoginSettings.Url'].replace(/\/$/, '') + '/oauth/authorize';
+                            }
+                            return '';
+                        },
+                        isDisabled: true,
+                    },
+                    {
+                        type: Constants.SettingsTypes.TYPE_TEXT,
+                        key: 'TelosLoginSettings.TokenEndpoint',
+                        label: t('admin.telos.tokenTitle'),
+                        label_default: 'Token Endpoint:',
+                        dynamic_value: (value, config, state) => {
+                            if (state['TelosLoginSettings.Url']) {
+                                return state['TelosLoginSettings.Url'].replace(/\/$/, '') + '/oauth/token';
+                            }
+                            return '';
+                        },
+                        isDisabled: true,
+                    },
+                ],
+            },
+        },
         oauth: {
             url: 'authentication/oauth',
             title: t('admin.sidebar.oauth'),

@@ -51,6 +51,7 @@ class LoginController extends React.PureComponent {
         enableSignInWithUsername: PropTypes.bool.isRequired,
         enableSignUpWithEmail: PropTypes.bool.isRequired,
         enableSignUpWithGitLab: PropTypes.bool.isRequired,
+        enableSignUpWithTelos: PropTypes.bool.isRequired,
         enableSignUpWithGoogle: PropTypes.bool.isRequired,
         enableSignUpWithOffice365: PropTypes.bool.isRequired,
         enableSignUpWithOpenId: PropTypes.bool.isRequired,
@@ -59,6 +60,8 @@ class LoginController extends React.PureComponent {
         samlLoginButtonText: PropTypes.string,
         gitlabButtonText: PropTypes.string,
         gitlabButtonColor: PropTypes.string,
+        telosButtonText: PropTypes.string,
+        telosButtonColor: PropTypes.string,
         openidButtonText: PropTypes.string,
         openidButtonColor: PropTypes.string,
         siteName: PropTypes.string,
@@ -434,6 +437,7 @@ class LoginController extends React.PureComponent {
     checkSignUpEnabled = () => {
         return this.props.enableSignUpWithEmail ||
             this.props.enableSignUpWithGitLab ||
+            this.props.enableSignUpWithTelos ||
             this.props.enableSignUpWithOffice365 ||
             this.props.enableSignUpWithGoogle ||
             this.props.enableSignUpWithOpenId ||
@@ -548,6 +552,7 @@ class LoginController extends React.PureComponent {
 
         const ldapEnabled = this.state.ldapEnabled;
         const gitlabSigninEnabled = this.props.enableSignUpWithGitLab;
+        const telosSigninEnabled = this.props.enableSignUpWithTelos;
         const googleSigninEnabled = this.props.enableSignUpWithGoogle;
         const office365SigninEnabled = this.props.enableSignUpWithOffice365;
         const openIdSigninEnabled = this.props.enableSignUpWithOpenId;
@@ -664,7 +669,7 @@ class LoginController extends React.PureComponent {
             );
         }
 
-        if ((emailSigninEnabled || usernameSigninEnabled || ldapEnabled) && (gitlabSigninEnabled || googleSigninEnabled || samlSigninEnabled || office365SigninEnabled || openIdSigninEnabled)) {
+        if ((emailSigninEnabled || usernameSigninEnabled || ldapEnabled) && (gitlabSigninEnabled || telosSigninEnabled || googleSigninEnabled || samlSigninEnabled || office365SigninEnabled || openIdSigninEnabled)) {
             loginControls.push(
                 <div
                     key='divider'
@@ -718,6 +723,38 @@ class LoginController extends React.PureComponent {
                 </a>,
             );
         }
+
+        if (telosSigninEnabled) {
+            const buttonStyle = {};
+            if (this.props.telosButtonColor) {
+                buttonStyle.backgroundColor = this.props.telosButtonColor;
+            }
+            let buttonText = (
+                <FormattedMessage
+                    id='login.telos'
+                    defaultMessage='Telos'
+                />
+            );
+            if (this.props.telosButtonText) {
+                buttonText = this.props.telosButtonText;
+            }
+            loginControls.push(
+                <a
+                    id='TelosButton'
+                    className='btn btn-custom-login openid'
+                    style={buttonStyle}
+                    key='telos'
+                    href={Client4.getOAuthRoute() + '/telos/login' + this.props.location.search}
+                >
+                    <span>
+                        <span>
+                            {buttonText}
+                        </span>
+                    </span>
+                </a>,
+            );
+        }
+
 
         if (googleSigninEnabled) {
             loginControls.push(

@@ -275,6 +275,12 @@ export const adminConsoleNavigation = [
         url: 'admin_console/authentication/gitlab',
     },
     {
+        type: ['team'],
+        header: 'Telos',
+        sidebar: 'Telos',
+        url: 'admin_console/authentication/telos',
+    },
+    {
         type: ['team', 'e20', 'cloud_enterprise'],
         header: 'OpenID Connect',
         sidebar: 'OpenID Connect',

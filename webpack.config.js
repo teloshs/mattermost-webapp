@@ -269,6 +269,7 @@ var config = {
                 csp: {
                     'http-equiv': 'Content-Security-Policy',
                     content: 'script-src \'self\' cdn.rudderlabs.com/ js.stripe.com/v3 ' + CSP_UNSAFE_EVAL_IF_DEV,
+                    //content: 'script-src \'self\' \'unsafe-eval\' cdn.rudderlabs.com/ js.stripe.com/v3 ' + CSP_UNSAFE_EVAL_IF_DEV,
                 },
             },
         }),

@@ -217,6 +217,26 @@ export default class SignupController extends React.PureComponent {
             );
         }
 
+        if (this.props.enableSignUpWithTelos) {
+            signupControls.push(
+                <a
+                    className='btn btn-custom-login btn--full telos'
+                    key='telos'
+                    href={Client4.getOAuthRoute() + '/telos/signup' + window.location.search}
+                >
+                    <span>
+                        <span className='icon'/>
+                        <span>
+                            <FormattedMessage
+                                id='signup.telos'
+                                defaultMessage='Telos Single Sign-On'
+                            />
+                        </span>
+                    </span>
+                </a>,
+            );
+        }
+
         if (this.props.isLicensed && this.props.enableSignUpWithGoogle) {
             signupControls.push(
                 <a

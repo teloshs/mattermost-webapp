@@ -32,6 +32,7 @@ function mapStateToProps(state) {
     const enableSignInWithUsername = config.EnableSignInWithUsername === 'true';
     const enableSignUpWithEmail = config.EnableSignUpWithEmail === 'true';
     const enableSignUpWithGitLab = config.EnableSignUpWithGitLab === 'true';
+    const enableSignUpWithTelos = config.EnableSignUpWithTelos === 'true';
     const enableSignUpWithGoogle = config.EnableSignUpWithGoogle === 'true';
     const enableSignUpWithOffice365 = config.EnableSignUpWithOffice365 === 'true';
     const enableSignUpWithOpenId = config.EnableSignUpWithOpenId === 'true';
@@ -39,6 +40,8 @@ function mapStateToProps(state) {
     const samlLoginButtonText = config.SamlLoginButtonText;
     const gitlabButtonText = config.GitLabButtonText;
     const gitlabButtonColor = config.GitLabButtonColor;
+    const telosButtonText = config.TelosLoginButtonText;
+    const telosButtonColor = config.TelosLoginButtonColor;
     const openidButtonText = config.OpenIdButtonText;
     const openidButtonColor = config.OpenIdButtonColor;
 
@@ -74,6 +77,7 @@ function mapStateToProps(state) {
         enableSignInWithUsername,
         enableSignUpWithEmail,
         enableSignUpWithGitLab,
+        enableSignUpWithTelos,
         enableSignUpWithGoogle,
         enableSignUpWithOffice365,
         enableSignUpWithOpenId,
@@ -82,6 +86,8 @@ function mapStateToProps(state) {
         samlLoginButtonText,
         gitlabButtonText,
         gitlabButtonColor,
+        telosButtonText,
+        telosButtonColor,
         openidButtonText,
         openidButtonColor,
         useCaseOnboarding,
